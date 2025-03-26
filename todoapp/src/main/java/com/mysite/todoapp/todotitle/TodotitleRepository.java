@@ -1,5 +1,7 @@
 package com.mysite.todoapp.todotitle;
 
-public interface TodotitleRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+public interface TodotitleRepository extends JpaRepository<Todotitle, Integer>{
+	
 }
