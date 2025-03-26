@@ -2,7 +2,27 @@
 <html layout:decorate="~{layout}">
 	
 	<div layout:fragment="content" class="container my-3">
+		<table class="table text-center">
+			<thead class="table-info">
+				<tr>
+					<th>No</th>
+					<th>Todotitle</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="todotitle, index : ${todotitleList}">
+					<td th:text="${index.count}"></td>
+					<td>
+						<a th:href="@{|/todotitle/detail/${todotitle.id}|}" th:text="${todotitle.subject}"></a>
+					</td>
+					<td th:text="${todotitle.createDate}"></td>
+					<!--td th:text="${#temporals.format(todotitle.createDate, 'MM-dd HH:mm')}"></td-->
+				</tr>
+			</tbody>
+		</table>
 		
+		<a th:href="@{/todotitle/create}" class="btn btn-danger">할 일 등록하기</a>
 	</div>
 	
 </html>
