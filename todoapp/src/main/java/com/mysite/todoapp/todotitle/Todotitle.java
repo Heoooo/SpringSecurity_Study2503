@@ -35,7 +35,7 @@ public class Todotitle {
 	private String createDate;
 	//private LocalDateTime createDate;
 	
-	@OneToMany(mappedBy = "abc", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "todotitle", cascade = CascadeType.REMOVE)
 	private List<Todowork> todoworkList;
 	//어떤 두 Entity 간의 일대다 관계 정의
 	//즉, todoworkList 필드가 데이터베이스 관련 테이블에 어떠헥 매핑되어야 하는지를 지정
