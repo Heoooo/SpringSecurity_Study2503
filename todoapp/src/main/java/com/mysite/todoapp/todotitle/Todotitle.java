@@ -39,4 +39,23 @@ public class Todotitle {
 	private List<Todowork> todoworkList;
 	//어떤 두 Entity 간의 일대다 관계 정의
 	//즉, todoworkList 필드가 데이터베이스 관련 테이블에 어떠헥 매핑되어야 하는지를 지정
+	//
+	//@OneToMany
+	//이 애너테이션은 todoworkList 필드가 일대다 관계를 나타냄을 의미
+	//즉, 하나의 Entity 인스턴스는 다른 Entity의 여러 인스턴스와 연결될 수 있다는 것을 의미
+	//이 애너테이션을 사용하여 정의된 todoworkList 필드는 실제 데이터베이스 테이블에 todoworkList 라는 별도 컬럼이 생성되지 않음
+	//
+	//mappedBy = "abc"
+	//이 속성은 관계의 역방향 매핑 속성을 지정
+	//Todowork 엔티티에서 소유 엔티티를 참조하는 필드를 의미 => Todowork쪽에 컬럼명이 abc_id 이런 식으로 생성됨을 의미
+	//todoworkList 필드는 Todowork 엔티티의 abc필드와 매핑 => 즉, Todowork 엔티티의 abc 필드가 소유 엔티티를 참조
+	//abc_id 필드 => 소유 엔티티를 참조하는 외래키 (소유 엔티티 테이블의 id 필드와 연결)
+	//
+	//cascade = CascadeType.REMOVE
+	//소유 엔티티가 삭제되면 todoworkList의 해당 TodoWork 엔티티도 삭제되어야 함을 의미
+	//
+	//todoworkList 필드는 실제 테이블에 존재하지 않지만
+	//todoworkList 필드를 사용하여 소유 엔티티의 인스턴스 목록에 엑세스하고 조작이 가능
+	//JPA는 이렇듯 @OneToMany 애너테이션 매핑을 사용하여 두 엔티티 간 일대다 관계를 만들어주고 관리
+	
 }
