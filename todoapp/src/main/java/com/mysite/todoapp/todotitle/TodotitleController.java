@@ -29,6 +29,11 @@ public class TodotitleController {
 	}
 	
 	//입력 페이지(GET)
+	@GetMapping("/create")
+	public String todotitleCreate() {
+		
+		return "todotitle_form";
+	}
 	
 	//입력 페이지(POST) => DB Save
 	
