@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +38,14 @@ public class TodotitleController {
 	}
 	
 	//입력 페이지(POST) => DB Save
+	@PostMapping("/create")
+	public String todotitleCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content) {
+		
+		//DB 저장
+		todotitleService.create(subject, content);
+		
+		return "redirect:/todotitle/list";
+	}
 	
 	//상세 페이지
 	
