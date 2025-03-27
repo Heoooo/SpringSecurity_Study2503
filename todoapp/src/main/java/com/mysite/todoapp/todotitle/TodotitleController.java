@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,5 +49,13 @@ public class TodotitleController {
 	}
 	
 	//상세 페이지
-	
+	@GetMapping("/detail/{id}")
+	public String detail(Model model, @PathVariable("id") Integer id) {
+		
+		//ID 값으로 타이틀 한 개 가져오기
+		Todotitle todotitle = todotitleService.getTodotitle(id);
+		model.addAttribute("todotitle", todotitle);
+		
+		return "todotitle_detail";
+	}
 }

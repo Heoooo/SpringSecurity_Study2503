@@ -3,8 +3,11 @@ package com.mysite.todoapp.todotitle;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
+import com.mysite.todoapp.DataNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +25,19 @@ public class TodotitleService {
 	}
 	
 	//getTodotitle() => ID 값으로 검색해서 한 개 타이틀 가져오기
-	
+	public Todotitle getTodotitle(Integer id) {
+		
+		//ID 값으로 검색
+		Optional<Todotitle> todotitle = todotitleRepository.findById(id);
+		
+		//존재한다면
+		if(todotitle.isPresent()) {
+			return todotitle.get();
+		}
+		else {
+			throw new DataNotFoundException("Todotitle Not Found");
+		}
+	}
 	
 	//create() => 타이틀 제목, 내용을 데이터베이스에 입력하기
 	public void create(String subject, String content) {
