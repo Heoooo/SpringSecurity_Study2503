@@ -17,6 +17,19 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 	</head>
 	<body>
+	
+		<!-- Navi -->
+		<div class="container py-3 mt-3 border border-info rounded d-flex">
+			<div class="container">
+				<a class="nav-link" th:href="@{/member/login}">[ Login ] - 클릭하면 로그인 페이지로 이동합니다.</a>
+			</div>
+			
+			<div class="container text-end">
+				<a th:href="@{/todotitle/list}">[ TodoApp ]</a> &nbsp;
+				<a th:href="@{/member/signup}">[ Member Sign-up ]</a>
+			</div>
+		</div>
+		
 		<!-- 기본 템플릿 안에 삽입될 내용 Start -->
 		<div class="container py-3 mt-3 border border-danger rounded">
 			<th:block layout:fragment="content"></th:block>
