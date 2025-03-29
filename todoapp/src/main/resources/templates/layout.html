@@ -30,6 +30,11 @@
 			</div>
 		</div>
 		
+		<!-- Spring Security에서 isAnnonymous() 역할은 로그인 여부만을 체크하는 것은 아니다.
+		좀 더 정확히 말하자면, 인증되지 않은 사용자를 의미한다.
+		로그인 여부만 판단한다고 오해하기 쉬운 이유는 로그인되지 않은 사용자는 당연히 인증되지 않은 사용자이기 때문이다.
+		하지만, 로그인하지 않은 사용자 외에도 로그아웃 경우에도 isAnnonymous()가 true 반환할 수 있다.  -->
+		
 		<!-- 기본 템플릿 안에 삽입될 내용 Start -->
 		<div class="container py-3 mt-3 border border-danger rounded">
 			<th:block layout:fragment="content"></th:block>
