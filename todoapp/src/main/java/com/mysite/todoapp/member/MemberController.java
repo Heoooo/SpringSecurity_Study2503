@@ -12,14 +12,14 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	
 	//로그인 요청->/member/login
-	@GetMapping("/member/login")
+	@GetMapping("/login")
 	public String login() {
 		
 		return "login_form";
 	}
 	
 	//회원가입 요청->/member/signup
-	@GetMapping("/member/signup")
+	@GetMapping("/signup")
 	public String signup() {
 		
 		return "signup_form";
