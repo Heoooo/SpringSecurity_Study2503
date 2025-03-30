@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/member")
 public class MemberController {
 	
-	private MemberService memberService;
+	private final MemberService memberService;
 	
 	//로그인 요청->/member/login
 	@GetMapping("/login")
@@ -42,7 +42,7 @@ public class MemberController {
 		
 		//패스워드 비교
 		if(!memberCreateForm.getPassword1().equals(memberCreateForm.getPassword2())) {
-			bindingResult.rejectValue("password2", "pwddwordInCorrect", "2개 패스워드가 일치하지 않습니다.");
+			bindingResult.rejectValue("password2", "passwordInCorrect", "2개 패스워드가 일치하지 않습니다.");
 			return "signup_form";
 			//첫 번째 파라미터 => 오류가 발생한 필드 이름
 			//두 번째 파라미터 => 오류를 나타내는 코드
