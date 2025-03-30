@@ -20,7 +20,7 @@ public class MemberController {
 	
 	//회원가입 요청->/member/signup
 	@GetMapping("/signup")
-	public String signup() {
+	public String signup(MemberCreateForm memberCreateForm) {
 		
 		return "signup_form";
 	}
