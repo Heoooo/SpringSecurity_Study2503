@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/member")
 public class MemberController {
 	
+	private MemberService memberService;
+	
 	//로그인 요청->/member/login
 	@GetMapping("/login")
 	public String login() {
