@@ -1,5 +1,6 @@
 package com.mysite.todoapp.member;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,6 @@ public class MemberService {
 	
 	private final MemberRepository memberRepository;
 	
-	private final PasswordEncoder passwordEncoder;
-	
 	public Member create(String username, String password, String email) {
 		
 		//객체 생성
@@ -23,6 +22,7 @@ public class MemberService {
 		member.setEmail(email);
 
 		//패스워드 암호화
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		member.setPassword(passwordEncoder.encode(password));
 		
 		memberRepository.save(member);
