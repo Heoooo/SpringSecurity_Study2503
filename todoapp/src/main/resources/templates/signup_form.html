@@ -1,6 +1,13 @@
 <html layout:decorate="~{layout}">
 	
 	<div layout:fragment="content" class="container my-3">
+		<script>
+			const msg = "[[${alertMsg}]]"
+			if (msg) {
+				alert(msg);
+				window.location.href='/member/signup';
+			}
+		</script>
 		<div class="my-3 border-bottom">
 			<div>
 				<h5>회원가입 - Member Sign-up</h5>
