@@ -21,6 +21,11 @@ public class SecurityConfig {
 		//람다식 사용하여 Spring Security 인가 설정 시작
 		//authorizeHttpRequests 메소드를 통해 권한 설정을 위한 객체를 생성하고, 람다식을 사용하여 여러가지 설정 내용 정의
 		http
+			.formLogin(
+					(formLogin) -> formLogin
+					.loginPage("/member/login")
+					.defaultSuccessUrl("/todotitle/list")
+			)
 			.csrf(
 				(csrf) -> csrf
 				.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
