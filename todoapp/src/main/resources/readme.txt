@@ -24,3 +24,17 @@
 4단계
 	-가장 간단, 마무리 작업
 	-프론트엔드 로그인 관련 템플릿 파일에서 작업
+	
+	
+Spring Security 폼(Form) 기반 로그인 과정
+1단계
+	-요청 전송 및 내부에서 에러가 발생하면 로그인 URL로 에러 전송
+2단계
+	-AuthenticationFilter(인증 필터) 작동 시작
+3단계
+	-AuthenticationManager 호출 및 인증 처리
+4단계
+	-AuthenticationProvider 호출
+5단계
+	-인증 결과 저장
+	
