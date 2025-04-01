@@ -5,6 +5,9 @@
 		<form th:action="@{/member/login}" method="POST" autocomplete="off">
 			
 			<!-- 에러 출력 -->
+			<div th:if="${param.error}">
+				<p class="alert alert-danger">입력하신 User ID 또는 Password 정보를 다시 확인해주세요!</p>
+			</div>
 			
 			<div class="my-3 border-bottom">
 				<h5>로그인 - Member Login</h5>
