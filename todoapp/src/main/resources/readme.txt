@@ -55,6 +55,26 @@ Spring Security 폼(Form) 기반 로그인 과정
 	-만약 AuthenticationProvider를 구현한 구현 클래스가 없다면 스프링 시큐리티에서 제공하는 AuthenticationProvider가 실행되며 인증 진행
 4단계
 	-AuthenticationProvider 호출
+	-이 단계를 달리 말하면 => UserDetailsService를 통한 사용자 정보 로드
+	-이 과정에서 스프링 시큐리티는 기본적으로 UserDetailsService 및 PasswordEncoder 사용
+	-AuthenticationProvider 구현체는 UserDatailsService를 호출하여 입력된 아이디와 일치하는 사용자 정보를 데이터베이스 조회
+	-UserDetailsService는 일반적으로 데이터베이스 및 다양한 저장소에서 사용자 정보를 가져올 수 있도록 구현
+	-암호화된 비밀번호 일치 확인 => 회원이 존재한다면 PasswordEncoder를 사용하여 요청된 비밀번호와 일치하는지 확인 => 자동 체크
+	
+	[!]
+	UserDetailsService는 뭐지?
+	-스프링 시큐리티에서 사용자 정보를 제공하는 핵심 인터페이스
+	-일반적으로 데이터베이스에서 사용자 정보를 조회하여 가져온 후 UserDetails 객체로 반환
+	-사용자 정보(아이디, 비밀번호, 권한 등)을 제공하는 역할을 수행 => 주로 사용자 인증을 위해 사용
+	-스프링 시큐리티에서 제공하는 인터페이스이므로, 해당 인터페이스를 구현하여 사용자 정보를 제공하는 구현 클래스 작성
+	
+	public class MemberSecurity implements UserDetailsService {
+		public UserDetails loadUserByUsername(String username(아이디))
+	}
 5단계
 	-인증 결과 저장
+	-AuthenticationProvider로 부터 반환된 Authentication 객체를 SecurityContext에 저장(인증 결과 저장)
+	-인증 성공 여부에 따라서 아래 각각 핸들러를 실행
+		+AuthenticationSuccessHandler
+		+AuthenticationFailureHandler
 	
