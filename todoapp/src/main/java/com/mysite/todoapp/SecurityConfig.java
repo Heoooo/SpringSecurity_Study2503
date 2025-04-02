@@ -2,6 +2,8 @@ package com.mysite.todoapp;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -48,6 +50,12 @@ public class SecurityConfig {
 			//하지만, 웹사이트의 특정 요구사항에 따라 이 코드가 필요하지 않을 수도 있다.
 		;
 		return http.build();
+	}
+	
+	@Bean
+	protected AuthenticationManager authenticationManger(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+		
+		return authenticationConfiguration.getAuthenticationManager();
 	}
 	
 }
