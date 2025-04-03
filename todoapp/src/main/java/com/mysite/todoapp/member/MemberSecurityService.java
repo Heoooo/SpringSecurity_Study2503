@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -44,7 +45,12 @@ public class MemberSecurityService implements UserDetailsService{
 		//특정 사용자가 승인된 리소스와 기능, 페이지에만 접근할 수 있도록 구현
 		
 		//5. admin 사용자인 경우 관리자 권한 부여하고, 그 외의 일반 유저 권한 부여 => ~.add() + MemberRole.java
-		
+		if("admin".equals(username)) {
+			authorities.add(new SimpleGrantedAuthority(MemberRole.USER.getValue()));
+		}
+		else {
+			authorities.add(new SimpleGrantedAuthority(MemberRole.USER.getValue()));
+		}
 		
 		//6.사용자 반환 => (1)사용자 이름 (2)비밀번호 (3)권한
 		return new User(member.getUsername(), member.getPassword(), authorities);
