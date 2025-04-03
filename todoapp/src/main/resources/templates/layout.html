@@ -3,6 +3,7 @@
 	lang = "ko"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/springsecurity5"
 >
 	<head>
 		<!-- Required Meta Tags -->
@@ -21,7 +22,8 @@
 		<!-- Navi -->
 		<div class="container py-3 mt-3 border border-info rounded d-flex">
 			<div class="container">
-				<a class="nav-link" th:href="@{/member/login}">[ Login ] - 클릭하면 로그인 페이지로 이동합니다.</a>
+				<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">[ Login ] - 클릭하면 로그인 페이지로 이동합니다.</a>
+				<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">[ Logout ]</a>
 			</div>
 			
 			<div class="container text-end">
