@@ -23,8 +23,16 @@
 		<!-- [1] -->
 		<div class="container py-3 mt-3 border border-info rounded d-flex">
 			<div class="container">
-				<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">[ Login ]</a>	
-				<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">[ Logout ]</a>	
+				<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">
+				[ Login ]
+				<!--: <span class="fw-bold" th:text="${#authentication.name}">Guest</span> 회원님 로그인해주세요!-->
+				<!--: <span class="fw-bold" th:text="${#authentication.name eq 'anonymousUser' ? 'Guest' : #authentication.name}">Guest</span> 회원님 로그인해주세요!-->
+				: <span class="fw-bold" th:if="${#authentication.name eq 'anonymousUser'}">Guest</span> 회원님 로그인해주세요!
+				</a>	
+				<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">
+				[ Logout ]
+				: <span class="fw-bold" th:text="${#authentication.name}"></span> 회원님 환영합니다.				
+				</a>	
 			</div>
 			<div class="container text-end">
 				<a th:href="@{/todotitle/list}">[ TodoApp ]</a>
