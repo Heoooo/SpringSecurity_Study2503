@@ -26,6 +26,10 @@
 				<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">[ Login ]</a>	
 				<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">[ Logout ]</a>	
 			</div>
+			<div class="container text-end">
+				<a th:href="@{/todotitle/list}">[ TodoApp ]</a>
+				<a th:href="@{/member/signup}">[ Member Sign-up ]</a>
+			</div>
 		</div>
 		
 		<!-- [2] -->
@@ -48,6 +52,11 @@
 			-->
 			1. <span class="mr-2 mx-2" th:text= ${#authentication.name}>사용자 이름 => 로그인하기 전에는 anonymous로 출력</span>
 			2. <span class="mr-2 mx-2" th:text="${#authentication.principal}">현재 인증된 사용자의 정보를 출력(principal)</span>
+		</div>
+		
+		<!-- [4] -->
+		<div class="container py-3 mt-3 border border-5 border-success rounded d-flex" sec:authorize="hasRole('ROLE_ADMIN')">
+			관리자 권한만 볼 수 있는 내용입니다. (녹색 테두리가 관리자만 보는 영역입니다.)
 		</div>
 		
 		<!--
