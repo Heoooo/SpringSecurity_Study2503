@@ -30,6 +30,12 @@ public class SecurityConfig {
 					.loginPage("/member/login")
 					.defaultSuccessUrl("/todotitle/list")
 			)
+			.logout(
+					(logout) -> logout
+					.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+					.logoutSuccessUrl("/todotitle/list")
+					.invalidateHttpSession(true)
+			)
 			.csrf(
 				(csrf) -> csrf
 				.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
@@ -50,7 +56,20 @@ public class SecurityConfig {
 			//보안 강화 측면에서 사용하기도 하지만 반대로 모든 도메인에서 포함을 허용한다면 필요하지 않을 수도 있음
 			//결론적으로, 프레임 구조 페이지에 접속할 때 이 코드를 사용하는 것이 일반적으로 권장
 			//하지만, 웹사이트의 특정 요구사항에 따라 이 코드가 필요하지 않을 수도 있다.
-		;
+		
+			
+			//로그아웃 처리
+			//-람다 표현식 => 로그아웃 설정을 위한 람다 표현식 사용
+			//-logout 객체 => 매개변수로 전달되는 logout 객체는 로그아웃 설정을 위한 다양한 메소드 제공
+			//-logoutRequestMatcher
+			//	로그아웃 요청을 처리할 URL 패턴 지정, 지정된 경로로 들어오는 요청을 로그아웃 요청으로 인식 => /member/logout
+			//-AntPathRequestMatcher
+			//	URL 패턴 매칭을 위한 클래스로, 다양한 패턴을 지원 => 유연한 설정 가능
+			//-logoutSuccessUrl(경로)
+			//-invalidateHttpSession
+			//	로그아웃 시 HTTP 세션을 무효화할지 여부를 설정, true로 설정하면 로그아웃 시 세션이 만료되어 사용자 상태 정보가 삭제
+			
+			;
 		return http.build();
 	}
 	
