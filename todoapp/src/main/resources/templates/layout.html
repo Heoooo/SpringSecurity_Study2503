@@ -23,7 +23,11 @@
 		<div class="container py-3 mt-3 border border-info rounded d-flex">
 			<div class="container">
 				<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">[ Login ] - 클릭하면 로그인 페이지로 이동합니다.</a>
-				<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">[ Logout ]</a>
+				<!--a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">[ Logout ]</a-->
+				<div sec:authorize="isAuthenticated()">
+					<p>환영합니다, <span sec:authentication="principal.username" style="font-weight: bold"></span>회원님!</p>
+					<p>현재 인증된 사용자 정보 출력 : <span sec:authentication="principal"></span></p>
+				</div>
 			</div>
 			
 			<div class="container text-end">
@@ -36,6 +40,33 @@
 		좀 더 정확히 말하자면, 인증되지 않은 사용자를 의미한다.
 		로그인 여부만 판단한다고 오해하기 쉬운 이유는 로그인되지 않은 사용자는 당연히 인증되지 않은 사용자이기 때문이다.
 		하지만, 로그인하지 않은 사용자 외에도 로그아웃 경우에도 isAnnonymous()가 true 반환할 수 있다.  -->
+		
+		<!-- 
+			sec:authorize VS sec:authentication
+			sec:authorize => HTML 요소의 표시 여부를 결정하는 조건 설정
+			sec:authentication => 인증된 사용자 정보에 접근하여 출력
+			
+			이 둘은 스프링 시큐리티와 타임리프를 함께 사용하여 동적인 웹페이지를 구축할 때 가장 필수적인 속성들
+			효과적으로 사용하면 사용자의 권한에 따라 화면을 동적으로 변경하고, 사용자 정보를 출력하는 등 다양한 기능을 구현
+			
+			-sec:authorize
+			기본적으로 페이지 상단에 sec 관련 선언을 해놓고 사용 => 안하면 노란 밑줄
+			sec:authorize는 타임리프 템플릿 엔진에서 스프링 시큐리티의 권한 체크를 위한 속성
+			따라서, 이 속성을 사용하면 현재 사용자가 특정 권한을 가지고 있는지 여부에 따라 => HTML 요소의 표시 여부 결정
+			
+			1. 주요 기능=> 조건부 렌더링이 가능하며 지정된 표현식이 true일 경우에만 해당 HTML 요소를 렌더링
+			2. 권한체크 => isAuthenticated(), isAnonymous(), hasRole() 등 스프링 시큐리티 표현식을 사용하여 사용자의 인증상태, 익명상태, 역할을 확인
+			3. 기타 => 사용자 정의 메소드를 호출하여 더 복잡한 권한 검사 수행
+			
+			-sec:authentication
+			타임리프 템플릿 엔진에서 스프링 시큐리티의 인증된 사용자 정보에 접근하기 위한 속성
+			따라서, 이 속성을 사용하면 현재 로그인(인증)된 사용자의 이름, 권한 등을 브라우저 화면에 출력
+			
+			1. 주요기능 => principal.username, principal.authorities 등 표현식을 사용하여 사용자 정보 출력
+			2. 기타 => 사용자 정의 UserDetails 객체의 속성에 접근 가능
+			
+			예) <p>현재 로그인 사용자 이름 : <span sec:authentication="principal.username"></span></p>
+		 -->
 		
 		<!-- 기본 템플릿 안에 삽입될 내용 Start -->
 		<div class="container py-3 mt-3 border border-danger rounded">
