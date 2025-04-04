@@ -20,13 +20,37 @@
 	<body>
 	
 		<!-- Navi -->
+		<!-- [1] -->
+		<div class="container py-3 mt-3 border border-info rounded d-flex">
+			<div class="container">
+				<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">[ Login ]</a>	
+				<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">[ Logout ]</a>	
+			</div>
+		</div>
+		
+		<!-- [2] -->
+		<div class="container py-3 mt-3 border border-info rounded d-flex" sec:authorize="isAuthenticated()">
+			<div class="container">
+				<ul>
+					<li>로그인된 사용자만 볼 수 있는 내용(사용자 정보)</li>
+					<li th:text="${#authentication.principal}">현재 인증된 사용자 정보 출력(세션에 저장된 사용자 정보에 따라 다름)</li>
+					<li th:text="|사용자 이름 : ${#authentication.principal.username}|"></li>
+					<li th:text="|사용자 권한 : ${#authentication.principal.authorities}|"></li>
+				</ul>
+			</div>
+		</div>
+		
+		
+		<!--
 		<div class="container py-3 mt-3 border border-info rounded d-flex">
 			<div class="container">
 				<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">[ Login ] - 클릭하면 로그인 페이지로 이동합니다.</a>
-				<!--a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">[ Logout ]</a-->
+				<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">[ Logout ]</a>
 				<div sec:authorize="isAuthenticated()">
 					<p>환영합니다, <span sec:authentication="principal.username" style="font-weight: bold"></span>회원님!</p>
 					<p>현재 인증된 사용자 정보 출력 : <span sec:authentication="principal"></span></p>
+					<p>현재 인증된 사용자 정보 출력 : <span sec:authentication="principal.authorities" style="font-weight: bold"></span></p>
+					<a class="nav-link" th:href="@{/member/logout}">[ Logout ]</a>
 				</div>
 			</div>
 			
@@ -35,6 +59,7 @@
 				<a th:href="@{/member/signup}">[ Member Sign-up ]</a>
 			</div>
 		</div>
+		-->
 		
 		<!-- Spring Security에서 isAnnonymous() 역할은 로그인 여부만을 체크하는 것은 아니다.
 		좀 더 정확히 말하자면, 인증되지 않은 사용자를 의미한다.

@@ -48,7 +48,7 @@ public class MemberSecurityService implements UserDetailsService{
 		//GrantedAuthority는 사용자의 권한을 나타내는 인터페이스
 		//따라서, 위 4번에서 ArrayList를 사용하여 GrantedAuthority 객체들을 저장할 리스트를 생성 => 이 리스트는 사용자가 가진 모든 권한을 저장
 		if("admin".equals(username)) {
-			authorities.add(new SimpleGrantedAuthority(MemberRole.USER.getValue()));
+			authorities.add(new SimpleGrantedAuthority(MemberRole.ADMIN.getValue()));
 		}
 		else {
 			authorities.add(new SimpleGrantedAuthority(MemberRole.USER.getValue()));
