@@ -40,6 +40,15 @@
 			</div>
 		</div>
 		
+		<!-- [3] -->
+		<div class="container py-3 mt-3 border border-info rounded d-flex" th:if="${#authentication.isAuthenticated()}">
+			<!--
+			1. <span class="mr-2 mx-2" sec:authentication="name">사용자 이름 => 로그인하기 전에는 anonymous로 출력</span>
+			2. <span class="mr-2 mx-2" sec:authentication="principal">현재 인증된 사용자의 정보를 출력(principal)</span>
+			-->
+			1. <span class="mr-2 mx-2" th:text= ${#authentication.name}>사용자 이름 => 로그인하기 전에는 anonymous로 출력</span>
+			2. <span class="mr-2 mx-2" th:text="${#authentication.principal}">현재 인증된 사용자의 정보를 출력(principal)</span>
+		</div>
 		
 		<!--
 		<div class="container py-3 mt-3 border border-info rounded d-flex">
