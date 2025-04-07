@@ -69,6 +69,16 @@ public class SecurityConfig {
 			//-invalidateHttpSession
 			//	로그아웃 시 HTTP 세션을 무효화할지 여부를 설정, true로 설정하면 로그아웃 시 세션이 만료되어 사용자 상태 정보가 삭제
 			
+			.authorizeHttpRequests(
+				(authorizeHttpRequests) -> authorizeHttpRequests
+				
+				//[1]
+				//모든 요청(URL)을 매칭하도록 설정 => permitAll()
+				//인증되지 않은 어떤 페이지의 요청도 허락한다는 뜻
+				//쉽게 말해, 모든 사용자가 로그인 없이 어떤 페이지든 접근할 수 있도록 스프링 시큐리티의 권한 설정을 완전 열린 상태로 설정
+				//.requestMatchers(new AntPathRequestMatcher("/member/**")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+			)
 			;
 		return http.build();
 	}
