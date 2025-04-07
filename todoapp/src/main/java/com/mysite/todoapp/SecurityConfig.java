@@ -77,7 +77,19 @@ public class SecurityConfig {
 				//인증되지 않은 어떤 페이지의 요청도 허락한다는 뜻
 				//쉽게 말해, 모든 사용자가 로그인 없이 어떤 페이지든 접근할 수 있도록 스프링 시큐리티의 권한 설정을 완전 열린 상태로 설정
 				//.requestMatchers(new AntPathRequestMatcher("/member/**")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+				//.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+				
+				//[2]
+				//페이지별 접근 권한(인가 or 허가) 설정
+				//여기서 기본적으로 기억해야 하는 것 => 아무튼 접근 권한이 없는데 접근하려고 하면(설령 로그인했어도) 403 Forbidden 에러 발생
+				//403 에러 대비용 템플릿 페이지를 만들어주는게 필요! (방법은 다양)
+				//	-application.properties 파일에서 403 에러 페이지에 대한 설정 필요
+				//	-이 때, 노란 밑줄(주의)가 나오면 툴에서 하라는대로 보통 해주면 처리 완료(보통은 거의 없음)
+				//	-templates > error 폴더 생성 후 => 403.html 에러 페이지 작업을 해서 배치
+				//
+				//-첫 번째 권한 => 등록은 관리자만 가능하게끔 => 관리자 권한만 허용 => ~.hasAuthority("ROLE_ADMIN") 사용
+				//-두 번째 권한 => 상세 페이지 내용은 최소한 인증(로그인)한 사용자만 볼 수 있게끔 허용 => 일반 유저 권한이 필요 => ~.authenticated() 사용
+				//-세 번째 권한 => 그 외 나머지 페이지는 모두 허용 => ~.permitAll() 사용
 			)
 			;
 		return http.build();
