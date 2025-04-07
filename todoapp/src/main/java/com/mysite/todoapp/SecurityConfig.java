@@ -90,6 +90,9 @@ public class SecurityConfig {
 				//-첫 번째 권한 => 등록은 관리자만 가능하게끔 => 관리자 권한만 허용 => ~.hasAuthority("ROLE_ADMIN") 사용
 				//-두 번째 권한 => 상세 페이지 내용은 최소한 인증(로그인)한 사용자만 볼 수 있게끔 허용 => 일반 유저 권한이 필요 => ~.authenticated() 사용
 				//-세 번째 권한 => 그 외 나머지 페이지는 모두 허용 => ~.permitAll() 사용
+				.requestMatchers(new AntPathRequestMatcher("/todotitle/create")).hasAuthority("ROLE_ADMIN")
+				.requestMatchers(new AntPathRequestMatcher("/todotitle/detail/**")).authenticated()
+				.anyRequest().permitAll()
 			)
 			;
 		return http.build();
