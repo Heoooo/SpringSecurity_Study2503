@@ -1,5 +1,6 @@
 package com.mysite.todoapp.todotitle;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mysite.todoapp.member.Member;
+import com.mysite.todoapp.member.MemberService;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -18,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class TodotitleController {
 	
 	private final TodotitleService todotitleService;
+	private final MemberService memberService;
 	
 	//목록 페이지
 	@GetMapping("/list")
@@ -40,6 +45,22 @@ public class TodotitleController {
 	
 	//입력 페이지(POST) => DB Save
 	@PostMapping("/create")
+	public String todotitleCreate(
+			@RequestParam(value="subject") String subject,
+			@RequestParam(value="content") String content,
+			Principal principal
+		) {
+		
+		//데이터베이스 저장하기 전 principal 객체로부터 필요한 정보를 받아 입력 메소드에 전달(Member)
+		Member member = memberService.getMember(principal.getName())
+		
+		//DB 저장
+		todotitleService.create(subject, content, member.get);
+				
+		return "redirect:/todotitle/list";
+	}
+	/* 기존 코드
+	@PostMapping("/create")
 	public String todotitleCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content) {
 		
 		//DB 저장
@@ -47,6 +68,7 @@ public class TodotitleController {
 		
 		return "redirect:/todotitle/list";
 	}
+	*/
 	
 	//상세 페이지
 	@GetMapping("/detail/{id}")

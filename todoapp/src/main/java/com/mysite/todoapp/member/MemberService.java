@@ -1,7 +1,11 @@
 package com.mysite.todoapp.member;
 
+import java.util.Optional;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.mysite.todoapp.DataNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,4 +33,16 @@ public class MemberService {
 		return member;
 	}
 	
+	//회원 한 명에 대한 정보 가져오기
+	public Member getMember(String username) {
+		
+		Optional<Member> member = memberRepository.findByUsername(username);
+		
+		if (member.isPresent()) {
+			return member.get();
+		}
+		else {
+			throw new DataNotFoundException("Member Not Found!");
+		}
+	}
 }
