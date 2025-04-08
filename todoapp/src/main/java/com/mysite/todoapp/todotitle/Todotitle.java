@@ -2,6 +2,7 @@ package com.mysite.todoapp.todotitle;
 
 import java.util.List;
 
+import com.mysite.todoapp.member.Member;
 import com.mysite.todoapp.todowork.Todowork;
 
 import jakarta.persistence.CascadeType;
@@ -10,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -58,4 +60,10 @@ public class Todotitle {
 	//todoworkList 필드를 사용하여 소유 엔티티의 인스턴스 목록에 엑세스하고 조작이 가능
 	//JPA는 이렇듯 @OneToMany 애너테이션 매핑을 사용하여 두 엔티티 간 일대다 관계를 만들어주고 관리
 	
+	
+	@ManyToOne
+	//여기서는 로그인 한 사용자 한 명이 타이틀 여러 개를 등록할 수 있기 때문에 => @ManyToOne 애너테이션 사용
+	//서버를 리스타트 하면 => 테이블에는 writer_id 형식으로 필드 생성
+	//이 필드에는 말 그대로 작성자 아이디(고유넘버)가 저장 => 기존 데이터가 있는 상태라면 => null 입력
+	private Member writer;
 }

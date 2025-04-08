@@ -95,4 +95,12 @@ Writer(작성자) 처리하기 => DB 연동 작업 =>Todotitle, Todowork 모두 
 		1) 할 일 등록하는 단계에서 회원 정보 필요 => @PostMapping("/create") 요청 시 필요
 		2) todotitleCreate() 메소드에서 작성자 아이디(고유넘버) 전달
 		3) 이 때, principal 객체 활용
-	
+3단계
+	-TodotitleService.java 수정 필요
+	-전달된 회원 객체를 받아서 데이터베이스에 입력해야 하니까 -> 가장 간단
+4단계
+	-MemberService.java 수정 필요(추가 메소드 작업)
+	-getMember() => 한 명의 회원 정보 요청이 들어오면 반환
+5단계
+	-todotitle_list.html 템플릿 페이지 수정 필요
+	-이 때, 데이터베이스 필드에는 고유넘버(ID)가 들어가지만 가져올 떄는 ${todotitle.writer.username} 출력	
