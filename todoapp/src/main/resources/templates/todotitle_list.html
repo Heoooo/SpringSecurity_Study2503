@@ -7,6 +7,7 @@
 				<tr>
 					<th>No</th>
 					<th>Todotitle</th>
+					<th>Writer</th>
 					<th>Date</th>
 				</tr>
 			</thead>
@@ -15,6 +16,9 @@
 					<td th:text="${index.count}"></td>
 					<td>
 						<a th:href="@{|/todotitle/detail/${todotitle.id}|}" th:text="${todotitle.subject}"></a>
+					</td>
+					<td>
+						<span th:if="${todotitle.writer != null }" th:text="${todotitle.writer.username}"></span>
 					</td>
 					<td th:text="${todotitle.createDate}"></td>
 					<!--td th:text="${#temporals.format(todotitle.createDate, 'MM-dd HH:mm')}"></td-->

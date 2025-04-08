@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.mysite.todoapp.DataNotFoundException;
+import com.mysite.todoapp.member.Member;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,7 +41,7 @@ public class TodotitleService {
 	}
 	
 	//create() => 타이틀 제목, 내용을 데이터베이스에 입력하기
-	public void create(String subject, String content) {
+	public void create(String subject, String content, Member member) {
 		
 		//객체 생성
 		Todotitle tt = new Todotitle();
@@ -49,6 +50,8 @@ public class TodotitleService {
 		tt.setSubject(subject);
 		tt.setContent(content);
 		tt.setCreateDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd HH:mm:ss.SSS")));
+		//tt.setCreateDate(LocalDateTime.now());
+		tt.setWriter(member);
 		
 		todotitleRepository.save(tt);
 	}

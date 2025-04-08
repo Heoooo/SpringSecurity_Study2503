@@ -52,10 +52,10 @@ public class TodotitleController {
 		) {
 		
 		//데이터베이스 저장하기 전 principal 객체로부터 필요한 정보를 받아 입력 메소드에 전달(Member)
-		Member member = memberService.getMember(principal.getName())
+		Member member = memberService.getMember(principal.getName());
 		
 		//DB 저장
-		todotitleService.create(subject, content, member.get);
+		todotitleService.create(subject, content, member);
 				
 		return "redirect:/todotitle/list";
 	}
