@@ -104,3 +104,28 @@ Writer(작성자) 처리하기 => DB 연동 작업 =>Todotitle, Todowork 모두 
 5단계
 	-todotitle_list.html 템플릿 페이지 수정 필요
 	-이 때, 데이터베이스 필드에는 고유넘버(ID)가 들어가지만 가져올 떄는 ${todotitle.writer.username} 출력	
+	
+
+Writer(작성자) 처리하기 2 => todowork 테이블에 입력
+1단계
+	-Todowork.java (엔티티 파일) 수정
+	-작성자 들어갈 새 필드 추가
+		@ManyToOne
+		private Member writer;
+2단계
+	-TodoworkController.java 수정
+	-현재 로그인한 사용자의 사용자이름(ID) 확인 => principal.getName() 호출
+	-호출해서 사용자 아이디를 서비스 메소드로 Member 객체 넘김
+3단계
+	-TodoworkService.java 수정
+	-넘어온 Member 객체 받아서 데이터베이스에 입력 => writer_id 필드에 고유넘버(ID) 값이 입력
+4단계
+	-todotitle_detail.html 템플릿 페이지 수정
+	-필요하면 style.css 수정
+	-할 일 타이틀 작성자 => ${todotitle.writer.username}
+	-관련된 할 일 작성자 => ${tw.writer.username}
+	-null 체크 => ${tw.writer != null}
+	-날짜 출력 => 날짜 객체가 아닌 문자열 타입임을 기억 => ${tw.createDate}
+최종 필드 구성(Todowork 엔티티 파일)
+	 todotitle_id => 타이틀 고유넘버(ID) 값이 들어감
+	 writer_id => 회원 고유넘버(ID) 값이 들어감
