@@ -77,4 +77,22 @@ Spring Security 폼(Form) 기반 로그인 과정
 	-인증 성공 여부에 따라서 아래 각각 핸들러를 실행
 		+AuthenticationSuccessHandler
 		+AuthenticationFailureHandler
+
+
+Writer(작성자) 처리하기 => DB 연동 작업 =>Todotitle, Todowork 모두 메커니즘 거의 동일
+1단계
+	-Todotitle.java(엔티티 파일) 변경 필요
+	-Writer를 DB에 입력해야 하니까.. (사용자이름 넣을 필드 생성 필요)
+	-생각할게 뭐가 있을까?
+		1)이 필드에 어떤 값을 넣으면 될까? => 다양한 값을 넣을 수 있지만 회원 고유 넘버(ID) 값을 입력
+		2)애너테이션 붙여야 하나?
+2단계
+	-TodotitleController.java 수정 필요
+	-인증(로그인)한 회원 객체의 정보를 얻어야 하니까
+	-이 때, Member 객체 정보를 얻는 방법으로 => Principal 객체 활용
+	-객체 정보가 필요한 곳에서 => Principal principal 해서 사용0
+	-어떤 부분에서 필요할까?
+		1) 할 일 등록하는 단계에서 회원 정보 필요 => @PostMapping("/create") 요청 시 필요
+		2) todotitleCreate() 메소드에서 작성자 아이디(고유넘버) 전달
+		3) 이 때, principal 객체 활용
 	
