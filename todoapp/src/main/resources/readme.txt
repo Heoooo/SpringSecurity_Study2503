@@ -167,3 +167,31 @@ Principal 객체 vs @PreAuthorize 애너테이션 관계
 	-TodoworkController.java => 해당 메소드 위에 @PreAuthorize 적용
 	-SecurityConfig.java => 상단에 @EnableMethodSecurity 적용
 	-todotitle_detail.html 수정
+
+	
+폼 클래스를 사용하여 입력값 체크하기 (앞서 배운 내용 복습)
+1.
+필요한 파일들
+	1) build.gradle 파일 수정 필요
+		-implementation 'org.springframework.boot:spring-boot-starter-validation'	
+	2) TodotitleCreateForm.java 폼 클래스 생성	
+	3) TodotitleController.java 폼 클래스 전달	
+	4) todotitle_form.html 템플릿 페이지 수정
+2.
+폼 클래스 만들기
+	- TodotitleCreateForm 새엇ㅇ
+	- 여러 다양한 애너테이션을 사용하여 검증 체크 => @NotEmpty, @Size...
+3.
+컨트롤러에 해당 폼클래스 객체 전송
+	-@Valid TodotitleCreateForm todotitleCreateForm, BindingResult bindingResult
+	-에러가 발생하면
+		if (bindingResult.hasErrors()) {
+			return "todotitle_form";
+		}
+4.
+템플릿 페이지 수정
+	-<form th:action="@{...}" th:object="${todotitleCreateForm}" method="POST">
+	-상단에 에러 출력
+	<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+		<div th:each="err : ${#fields.allErrors()}" th:text="${err}"/>
+	</div>

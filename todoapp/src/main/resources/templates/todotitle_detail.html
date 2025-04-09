@@ -30,12 +30,22 @@
 		<div class="pb-5">
 			<form th:action="@{|/todowork/create/${todotitle.id}|}" method="POST" autocomplete="off">
 				
+				<div sec:authorize="isAnonymous()">
+					<input disabled value="로그인 해야지만 글 작성 가능" type="text" name="content" class="form-control">
+					<input disabled type="submit" value="할 일 등록하기" class="btn btn-dark mt-2">
+				</div>
+				
+				<div sec:authorize="isAuthenticated()">
+					<input type="text" name="content" class="form-control" required autofocus>
+					<input type="submit" value="할 일 등록하기" class="btn btn-dark mt-2">
+				</div>
+				
+				<!--
 				<input sec:authorize="isAnonymous()" disabled value="로그인 해야지만 글 작성 가능" type="text" name="content" class="form-control">
 				<input sec:authorize="isAuthenticated" type="text" name="content" class="form-control" required autofocus>
-				
-				
 				<input type="submit" value="할 일 등록하기" class="btn btn-dark mt-2">
-
+				-->
+			
 				<!--
 				<div sec:autorize="isAnonymous()">
 					<input disabled value="로그인 해야지만 글 작성 가능" type="text" name="content" class="form-control">
