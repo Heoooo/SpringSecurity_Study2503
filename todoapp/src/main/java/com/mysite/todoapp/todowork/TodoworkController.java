@@ -2,6 +2,7 @@ package com.mysite.todoapp.todowork;
 
 import java.security.Principal;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ public class TodoworkController {
 	private final TodoworkService todoworkService;
 	private final MemberService memberService;
 	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create/{id}")
 	public String createTodowork(
 			Model model,

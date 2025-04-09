@@ -153,3 +153,17 @@ Principal 객체 vs @PreAuthorize 애너테이션 관계
 	-상단에 @EnableMethodSecurity(prePostEnabled = true) 적용
 	-만약, 이 적용을 안해주면 @PreAuthorize 애너테이션을 붙여봤자 설정이 되지 않음
 	-따라서, 뭔가 @PreAuthorize 애너테이션이 제대로 동작하지 않는다 생각이 들면 설정 파일 상단에 적용이 되었는지 체크
+	
+
+템플릿 페이지단에서 글 등록 제한하기
+1.
+기본적으로 템플릿 페이지에서 한다면?
+	-disabled 이용
+	-sec:authorize="isAnonymous()" vs sec:authorize="isAuthenticated()" 이용
+	-isAnonymous() => 너 지금 로그아웃 상태구나.. 의미
+	-isAuthenticated() => 로그인 상테 체크 => 즉, 너 지금 로그인 상태구나.. 의미
+2.
+필요한 파일들? (관련된 할 일 등록하는 상황일 때)
+	-TodoworkController.java => 해당 메소드 위에 @PreAuthorize 적용
+	-SecurityConfig.java => 상단에 @EnableMethodSecurity 적용
+	-todotitle_detail.html 수정
