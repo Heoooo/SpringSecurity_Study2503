@@ -3,13 +3,27 @@
 	
 	<div layout:fragment="content" class="container my-3">
 		<h5 class="my-3 border-bottom pb-2" th:text="${todotitle.subject}"></h5>
+		
+		<div class="text-end">
+			작성자 : <span class="fw-bold" th:if="${todotitle.writer != null}" th:text="${todotitle.writer.username}"></span>
+			(Create Date : <span th:text="${todotitle.createDate}"></span>)
+		</div>
 	
 		<div  class="pb-5 text-black-50" th:text="${todotitle.content}"></div>
 		
 		<h6 th:text="|${#lists.size(todotitle.todoworkList)} 개의 관련 할 일이 등록되어 있습니다.|"></h6>
 		<div>
 			<ul>
-				<li th:each="tw : ${todotitle.todoworkList}" th:text="${tw.content}"></li>
+			
+				<!--li th:each="tw : ${todotitle.todoworkList}" th:text="${tw.content}"></li-->
+				<li th:each="tw : ${todotitle.todoworkList}">
+					<span th:text="${tw.content}"></span>
+					&nbsp; - &nbsp;					
+					<span th:if="${tw.writer != null}" th:text="${tw.writer.username}" class="fw-bold text-primary"></span>
+					<span class="small">(<span th:text="${tw.createDate.substring(0,5)}"></span>)</span>
+					<!--span th:text="${#temporals.format(tw.createDate,'yyyy-MM-dd HH:mm')}"></span-->
+				</li>
+				
 			</ul>
 		</div>
 		
