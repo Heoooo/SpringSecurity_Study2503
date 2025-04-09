@@ -1,5 +1,6 @@
 package com.mysite.todoapp.todowork;
 
+import com.mysite.todoapp.member.Member;
 import com.mysite.todoapp.todotitle.Todotitle;
 
 import jakarta.persistence.Column;
@@ -29,4 +30,6 @@ public class Todowork {
 	@ManyToOne
 	private Todotitle todotitle;
 	
+	@ManyToOne
+	private Member writer;
 }

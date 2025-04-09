@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Service;
 
+import com.mysite.todoapp.member.Member;
 import com.mysite.todoapp.todotitle.Todotitle;
 
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class TodoworkService {
 	
 	private final TodoworkRepository todoworkRepository;
 	
-	public void create(Todotitle todotitle, String content) {
+	public void create(Todotitle todotitle, String content, Member member) {
 		
 		//객체 생성
 		Todowork tw =new Todowork();
@@ -24,6 +25,7 @@ public class TodoworkService {
 		tw.setContent(content);
 		tw.setCreateDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd HH:mm:ss.SSS")));
 		tw.setTodotitle(todotitle);
+		tw.setWriter(member);
 		
 		//Save
 		todoworkRepository.save(tw);

@@ -6,3 +6,7 @@ a {
 /*	text-decoration-line: overline;*/
 /*	text-decoration-line: line-through;*/
 }
+
+li {
+	line-height: 2rem;
+}
