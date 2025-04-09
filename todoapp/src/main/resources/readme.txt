@@ -129,3 +129,27 @@ Writer(작성자) 처리하기 2 => todowork 테이블에 입력
 최종 필드 구성(Todowork 엔티티 파일)
 	 todotitle_id => 타이틀 고유넘버(ID) 값이 들어감
 	 writer_id => 회원 고유넘버(ID) 값이 들어감
+	 
+	 
+메서드에 인증(로그인) 권한 부여하기
+Principal 객체 vs @PreAuthorize 애너테이션 관계
+1.
+이 객체는 기본적으로 사용자가 인증(로그인)을 해야지만 생성이 되는 객체이기 때문에 이런 것을 잘 기억하는게 중요!
+무슨 문제가 있나?
+	-등록 페이지를 관리자 전용에서 모두 허용으로 권한을 풀면 => 에러 발생
+	-이 때, 발생하는 에러는 => "Principal" is null
+2.
+이 문제를 해결하는 방법은?
+	-기본적으로 이 객체(Principal)를 사용하는 해당 메소드에 특정 애너테이션을 사용 => @PreAuthorize("isAuthenticated()")
+	-@PreAuthorize("isAuthenticated()") => 이게 붙으면 인증(로그인)된 경우에만 메소드가 실행
+	-즉, 로그인한 사용자만이 이 메소드를 호출할 수 있게 된다.
+3.
+로그인 하지 않은 상태인데 @PreAuthorize("isAuthenticated()") 붙은 메소드가 호출되면?
+	-인증하라고 로그인 페이지로 강제 이동
+4.
+기본적인 사용 방법
+	-Principal 객체가 사용되어지는 메소드를 찾아서 @PreAuthorize 적용
+	-그런 후 @PreAuthorize 애너테이션이 해당 프로젝트에서 동작할 수 있도록 스프링 시큐리티 설정을 수정 => SecurityConfig.java
+	-상단에 @EnableMethodSecurity(prePostEnabled = true) 적용
+	-만약, 이 적용을 안해주면 @PreAuthorize 애너테이션을 붙여봤자 설정이 되지 않음
+	-따라서, 뭔가 @PreAuthorize 애너테이션이 제대로 동작하지 않는다 생각이 들면 설정 파일 상단에 적용이 되었는지 체크

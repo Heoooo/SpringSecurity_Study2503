@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 //@Configuration : 스프링 환경설정 파일임을 의미하는 애너테이션 => 여기서는 스프링 시큐리티 설정을 위해 사용
 //@EnableWebSecurity : 모든 요청 URL이 스프링 시큐리티 프레임워크의 통제를 받게하는 애너테이션
 //이 애너테이션을 사용하면 내부적으로 SpringSecurityFilterChain이 동작하면서 URL 필터가 적용
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 	
 	@Bean
@@ -90,7 +92,7 @@ public class SecurityConfig {
 				//-첫 번째 권한 => 등록은 관리자만 가능하게끔 => 관리자 권한만 허용 => ~.hasAuthority("ROLE_ADMIN") 사용
 				//-두 번째 권한 => 상세 페이지 내용은 최소한 인증(로그인)한 사용자만 볼 수 있게끔 허용 => 일반 유저 권한이 필요 => ~.authenticated() 사용
 				//-세 번째 권한 => 그 외 나머지 페이지는 모두 허용 => ~.permitAll() 사용
-				.requestMatchers(new AntPathRequestMatcher("/todotitle/create")).hasAuthority("ROLE_ADMIN")
+				//.requestMatchers(new AntPathRequestMatcher("/todotitle/create")).hasAuthority("ROLE_ADMIN")
 				.requestMatchers(new AntPathRequestMatcher("/todotitle/detail/**")).authenticated()
 				.anyRequest().permitAll()
 			)
