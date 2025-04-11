@@ -195,3 +195,12 @@ Principal 객체 vs @PreAuthorize 애너테이션 관계
 	<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
 		<div th:each="err : ${#fields.allErrors()}" th:text="${err}"/>
 	</div>
+5.
+에러 발생 주의
+	-템플릿 페이지에서 form 태그쪽에 th:object 속성 => 이 속성을 추가했기 때문에 에러 발생 주의!
+	-todotitleCreateForm과 같이 매개변수로 바인딩한 객체는 Model 객체로 전달하지 않아도 템플릿에서 사용이 가능
+	-따라서, @GetMapping("/create") 요청 시 전달값으로 todotitleCreateForm 객체를 전달하는게 필요
+	-required 삭제하고 테스트
+	-에러 내용 출력 후 폼에 입력한 내용이 사라지는 문제?
+		해당 폼에 th:field="*{subject}" 등 필드 속성을 사용하여 변경
+		content 폼도 마찬가지로 작업
