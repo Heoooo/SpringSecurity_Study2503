@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mysite.todoapp.member.Member;
 import com.mysite.todoapp.member.MemberService;
+import com.mysite.todoapp.todowork.TodoworkCreateForm;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -99,7 +100,7 @@ public class TodotitleController {
 	
 	//상세 페이지
 	@GetMapping("/detail/{id}")
-	public String detail(Model model, @PathVariable("id") Integer id) {
+	public String detail(Model model, @PathVariable("id") Integer id, TodoworkCreateForm todoworkCreateForm) {
 		
 		//ID 값으로 타이틀 한 개 가져오기
 		Todotitle todotitle = todotitleService.getTodotitle(id);

@@ -28,8 +28,9 @@
 		</div>
 		
 		<div class="pb-5">
-			<form th:action="@{|/todowork/create/${todotitle.id}|}" method="POST" autocomplete="off">
+			<form th:action="@{|/todowork/create/${todotitle.id}|}" th:object="${todoworkCreateForm}"method="POST" autocomplete="off">
 				
+				<!--
 				<div sec:authorize="isAnonymous()">
 					<input disabled value="로그인 해야지만 글 작성 가능" type="text" name="content" class="form-control">
 					<input disabled type="submit" value="할 일 등록하기" class="btn btn-dark mt-2">
@@ -39,12 +40,17 @@
 					<input type="text" name="content" class="form-control" required autofocus>
 					<input type="submit" value="할 일 등록하기" class="btn btn-dark mt-2">
 				</div>
-				
-				<!--
-				<input sec:authorize="isAnonymous()" disabled value="로그인 해야지만 글 작성 가능" type="text" name="content" class="form-control">
-				<input sec:authorize="isAuthenticated" type="text" name="content" class="form-control" required autofocus>
-				<input type="submit" value="할 일 등록하기" class="btn btn-dark mt-2">
 				-->
+				
+				<!-- 에러 출력 -->
+				<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+					<div th:each="err : ${#fields.allErrors()}" th:text="${err}">
+					</div>
+				</div>
+				
+				<input sec:authorize="isAnonymous()" disabled value="로그인 해야지만 글 작성 가능" type="text" name="content" class="form-control">
+				<input sec:authorize="isAuthenticated" type="text" name="content" class="form-control" autofocus>
+				<input type="submit" value="할 일 등록하기" class="btn btn-dark mt-2">
 			
 				<!--
 				<div sec:autorize="isAnonymous()">
