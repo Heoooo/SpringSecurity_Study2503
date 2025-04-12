@@ -204,3 +204,27 @@ Principal 객체 vs @PreAuthorize 애너테이션 관계
 	-에러 내용 출력 후 폼에 입력한 내용이 사라지는 문제?
 		해당 폼에 th:field="*{subject}" 등 필드 속성을 사용하여 변경
 		content 폼도 마찬가지로 작업
+		
+		
+Spring Boot Validation 라이브러리
+사용자 입력 값 검증 시 사용할 수 있는 애너테이션 종류
+	@Size : 입력 문자 길이 제한할 때 사용 => min, max 사용
+	@NotEmpty : 허용하지 않는 것 => Null, 빈 문자열("") / 허용하는 것 => 공백(" ")	
+	@NotNull : 허용하지 않는 것 => Null / 허용하는 것 => 빈 문자열(""), 공백(" ")
+	@NotBlank : 허용하지 않는 것 => Null, 빈 문자열, 공백
+	@Null : Null만 허용
+	
+	@Past : 현재 기준으로 과거 날짜만 입력이 가능
+	@Future : 현재 기준으로 미래 날짜만 입력이 가능
+	@FutureOrPresent : 현재 기준으로 미래 또는 오늘 날짜만 입력이 가능
+	@PastFutureOrPresent : 현재 시간이거나 과거의 날짜, 시간이어야 함
+	
+	@Max : 설정한 최댓값 이하로만 입력이 가능하도록 제한 => @Max(value=)
+	@Min : 설정한 최솟값 이상으로만 입력이 가능하도록 제한 => @Min(value=)
+	
+	@Positive : 값을 양수로 제한
+	@Negative : 값을 음수로 제한
+	@PositiveOrZero : 값을 양수와 0만 가능하도록 제한
+	@NegativeOrZero : 값을 음수와 0만 가능하도록 제한
+	
+	
