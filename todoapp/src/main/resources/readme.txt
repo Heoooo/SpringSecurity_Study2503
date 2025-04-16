@@ -538,4 +538,15 @@ Spring Boot Validation 라이브러리
 	
 	문제11 : 정규식으로 연속된 동일한 문자가 3번 이상 반복되는 경우에 대해서 제한하려면?
 		수정 => regexp="^(?!.*(.)\1{2})[!@#$%^&*()](?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()]{7,11}$"
-		
+	
+
+	
+레코드 수정 및 삭제 구현
+	-Todotitle 레코드 한 개에 대한 수정 및 삭제 기능 구현
+	[필요한 파일들]
+	todotitle_detail.html
+	todotitle_form.html (입력+수정) => 주의사항!
+	
+	Todotitle.java
+	TodotitleController.java
+	TodotitleService.java
