@@ -11,13 +11,22 @@
 	
 		<div  class="pb-5 text-black-50" th:text="${todotitle.content}"></div>
 		
-		<!-- 수정 버튼 만들기 Start -->
+		<!-- 수정 버튼 만들기 Start -->			
 		<div class="my-3 pb-5 position-relative border">
-			<a th:href="@{|/todotitle/modify/${todotitle.id}|}"
-				class="btn btn-sm btn-warning position-absolute top-0 end-0"
+		
+			<a href="javascript:void(0);"
+				th:data-uri="@{|/todotitle/delete/${todotitle.id}|}"
+				class="delete btn btn-sm btn-secondary float-end"
 				sec:authorize="isAuthenticated()"
 				th:if="${todotitle.writer != null and #authentication.getPrincipal().getUsername() == todotitle.writer.username}"
-				th:text="수정">			
+				th:text="Delete"
+			></a>
+		
+			<a th:href="@{|/todotitle/modify/${todotitle.id}|}"
+				class="btn btn-sm btn-warning float-end me-3"
+				sec:authorize="isAuthenticated()"
+				th:if="${todotitle.writer != null and #authentication.getPrincipal().getUsername() == todotitle.writer.username}"
+				th:text="Update">			
 			</a>
 			<!-- 
 				버튼 정렬

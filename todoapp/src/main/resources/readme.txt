@@ -592,3 +592,27 @@ Spring Boot Validation 라이브러리
 	7. 최종 컨트롤러(TodotitleController) 파일 수정
 		-수정 관련한 에러 처리 및 수정 후 리다이렉트 등에 대한 최종적인 수정 마무리 => @PostMapping() 요청에 대한 처리
 		-BindingResult, bindingResult.hasErrors() 사용하여 폼 관련 에러 발생 시 출력
+		
+		
+	[삭제 구현 단계]
+	삭제는 매우 쉽다. 그러나 어떻게 구현하느냐에 따라 생각해봐야 하는 것들은 조금 있다.
+		-삭제할 때 비번을 입력해서 확인할 것인지? (여기서 작성자와 로그인 아이디가 일치하면 바로 삭제하는 방식)
+		-자바스크립트 사용할 것인지?
+		-todotitle 글 하나가 삭제될 때 여기에 딸린 글들도 같이 삭제가 되어지는지?
+	1.필요한 파일들
+		-todotitle_detail.html
+		-layout.html (레이아웃 파일은 자바스크립트 코드[fragment]를 삽입해야 하기 때문에 작업이 필요할 수 있음)
+		
+		-TodotitleController.java
+		-TodotitleService.java
+		
+	2. 삭제 버튼 만들기 => todotitle_detail
+		-수정 버튼 만들 때와 똑같이 해주면 되나 float-end로 정렬 시 주의가 필요!
+		-자바스크립트로 삭제 여부 확인하고자 한다면 해당 스크립트 코드가 필요
+	
+	3. 컨트롤러 작업 => TodotitleConroller
+		-todotitleDelete() 메소드 작성
+		-POST는 필요없고 GET 방식에 대해서만 처리해주면 끝	
+		
+	4. 서비스 작업 => TodotitleService
+		-delete() 메소드 작성
