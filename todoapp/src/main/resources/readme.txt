@@ -543,6 +543,7 @@ Spring Boot Validation 라이브러리
 	
 레코드 수정 및 삭제 구현
 	-Todotitle 레코드 한 개에 대한 수정 및 삭제 기능 구현
+	
 	[필요한 파일들]
 	todotitle_detail.html
 	todotitle_form.html (입력+수정) => 주의사항!
@@ -550,3 +551,43 @@ Spring Boot Validation 라이브러리
 	Todotitle.java
 	TodotitleController.java
 	TodotitleService.java
+	
+	[수정 구현 단계]
+	1. 수정 버튼 만들기 => 템플릿 페이지에서 수정 버튼 생성
+	
+	2. 엔티티(Todotitle) 파일 => 레코드가 수정된 날짜를 기록하기 위해 새로운 필드 추가
+	
+	3. 컨트롤러(Controller) 파일 => 수정 요청에 대한 처리
+		-@GetMapping() 요청에 대한 처리
+		-@{|/todotitle/modify/${todotitle.id}|}
+		-수정 메소드 작성 => 이 때 3가지 인자 필요
+			todotitleModify(
+				TodotitleCreateForm todotitleCreateForm,
+				@PathVariable("id") Integer id,
+				Principal principal
+			)
+		-최종 단계에서 에러 처리 및 수정 후 리다이렉트 등에 대한 처리 필요 => @PostMapping() 요청에 대한 처리
+		
+	4. 수정에서 할 일들 => 즉, todotitleModify() 메소드에서 할 일
+		-기존 Todotitle 정보를 가져와서 폼에 출력 => 기존 정보를 수정하기 위해서
+		-템플릿 폼 페이지는 기존 입력 폼에서 사용하는 것을 그대로 사용 => 재활용
+		-템플릿 재사용을 위해서 todotitleCreateForm 객체에 id 값으로 조회한 레코드의 제목(subject)과 내용(content)을 담아서 템플릿으로 전달
+		
+	5. 폼 페이지 템플릿 변경 => 입력과 수정에서 모두 사용하려고
+		(1)
+		-th:action="@{/todotitle/create}" => 이 부분을 삭제
+		-삭제하는 이유 => 이 템플릿을 입력과 수정 시에 같이 사용하기 위해서 => 액션 주소 값을 삭제
+		-form 태그 action 속성 특징 => 이 값이 없더라도 자동으로 현재 접속한 url을 기준으로 폼 값이 전송되는 규칙이 내부에 기본값으로 설정
+			예) http://localhost:8080/todotitle/modify/3
+			이렇게 수정하는 폼 페이지에 접속하면 action 속성에 /todotitle/modify/3과 같은 URL이 기본값으로 설정
+		(2)
+		-<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> => 추가
+			이유 : CSRF 이 값을 스프링 시큐리티가 반드시 필요로 하기 때문에
+			
+	6. 서비스 파일에 관련 메소드 추가
+		-수정 메소드 추가 => modify()
+		-public void modify(Todotitle todotitle, String subject, String content) {...} => save()
+	
+	7. 최종 컨트롤러(TodotitleController) 파일 수정
+		-수정 관련한 에러 처리 및 수정 후 리다이렉트 등에 대한 최종적인 수정 마무리 => @PostMapping() 요청에 대한 처리
+		-BindingResult, bindingResult.hasErrors() 사용하여 폼 관련 에러 발생 시 출력
