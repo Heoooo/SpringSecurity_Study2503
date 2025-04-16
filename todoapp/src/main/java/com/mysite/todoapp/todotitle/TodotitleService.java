@@ -56,4 +56,15 @@ public class TodotitleService {
 		todotitleRepository.save(tt);
 	}
 	
+	
+	//Todotitle 수정
+	public void modify(Todotitle todotitle, String subject, String content) {
+		
+		todotitle.setSubject(subject);
+		todotitle.setContent(content);
+		todotitle.setModifyDate(LocalDateTime.now());
+		
+		//Save
+		todotitleRepository.save(todotitle);
+	}
 }

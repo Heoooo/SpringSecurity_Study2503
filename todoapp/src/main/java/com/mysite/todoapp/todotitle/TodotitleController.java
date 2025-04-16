@@ -137,4 +137,34 @@ public class TodotitleController {
 		return "todotitle_form";
 	}
 	
+	
+	//Todotitle 수정 처리(POST)
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/modify/{id}")
+	public String todotitleModify(
+			@Valid TodotitleCreateForm todotitleCreateForm,
+			BindingResult bindingResult,
+			Principal principal,
+			@PathVariable("id") Integer id
+			) {
+		//에러가 있으면 출력
+		if (bindingResult.hasErrors()) {
+			return "todotitle_form";
+		}
+		
+		//넘어온 ID 값에 맞는 Todotitle 객체 하나 가져오기 => getTodotitle() 사용
+		Todotitle todotitle = todotitleService.getTodotitle(id);
+		
+		//작성자 아이디와 로그인 아이디가 같은지 비교
+		if (!todotitle.getWriter().getUsername().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "레코드에 대한 수정 권한이 없습니다.");
+		}
+		
+		//서비스 modify() 메소드 호출
+		todotitleService.modify(todotitle, todotitleCreateForm.getSubject(), todotitleCreateForm.getContent());
+		
+		//다시 상세 페이지로 리다이렉트
+		return String.format("redirect:/todotitle/detail/%s", id);
+		
+	}
 }

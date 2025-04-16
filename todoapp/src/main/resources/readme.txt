@@ -551,6 +551,7 @@ Spring Boot Validation 라이브러리
 	Todotitle.java
 	TodotitleController.java
 	TodotitleService.java
+	SecurityConfig.java => @PreAuthorize 메소드 실행을 위해 => @EnableMethodSecurity(prePostEnabled = true) => 안해주면 500번대 에러 발생 가능
 	
 	[수정 구현 단계]
 	1. 수정 버튼 만들기 => 템플릿 페이지에서 수정 버튼 생성
