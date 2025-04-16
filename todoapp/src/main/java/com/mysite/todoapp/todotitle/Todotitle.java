@@ -1,5 +1,6 @@
 package com.mysite.todoapp.todotitle;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.mysite.todoapp.member.Member;
@@ -66,4 +67,6 @@ public class Todotitle {
 	//서버를 리스타트 하면 => 테이블에는 writer_id 형식으로 필드 생성
 	//이 필드에는 말 그대로 작성자 아이디(고유넘버)가 저장 => 기존 데이터가 있는 상태라면 => null 입력
 	private Member writer;
+	
+	private LocalDateTime modifyDate;
 }

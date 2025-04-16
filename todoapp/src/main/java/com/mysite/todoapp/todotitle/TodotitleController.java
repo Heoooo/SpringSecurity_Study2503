@@ -2,6 +2,9 @@ package com.mysite.todoapp.todotitle;
 
 import java.security.Principal;
 import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.mysite.todoapp.member.Member;
 import com.mysite.todoapp.member.MemberService;
@@ -108,4 +112,29 @@ public class TodotitleController {
 		
 		return "todotitle_detail";
 	}
+	
+	
+	//Todotitle 수정 처리(GET)
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/modify/{id}")
+	public String todotitleModify(
+			TodotitleCreateForm todotitleCreateForm,
+			@PathVariable("id") Integer id,
+			Principal principal
+			) {
+		//넘어온 ID 값에 맞는 객체 하나 반환받기
+		Todotitle todotitle = todotitleService.getTodotitle(id);
+		
+		//조건문을 통해서 비교
+		if(!todotitle.getWriter().getUsername().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "해당 레코드 수정 권한이 없습니다.");
+		}
+		
+		//폼 페이지에 출력할 값 셋팅 (DB에서 가져온 값으로 셋팅)
+		todotitleCreateForm.setSubject(todotitle.getSubject());
+		todotitleCreateForm.setContent(todotitle.getContent());
+		
+		return "todotitle_form";
+	}
+	
 }

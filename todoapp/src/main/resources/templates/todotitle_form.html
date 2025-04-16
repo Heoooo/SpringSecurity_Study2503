@@ -4,7 +4,9 @@
 	<div layout:fragment="content" class="container">
 		<h5 class="my-3 border-bottom pb-2">Todotitle Create</h5>
 	
-		<form th:action="@{/todotitle/create}" th:object="${todotitleCreateForm}" method="POST" autocomplete="off">
+		<form th:object="${todotitleCreateForm}" method="POST" autocomplete="off">
+			
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 			
 			<!-- 에러 출력 -->
 			<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
