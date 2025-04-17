@@ -167,4 +167,24 @@ public class TodotitleController {
 		return String.format("redirect:/todotitle/detail/%s", id);
 		
 	}
+	
+	
+	//Todotitle 삭제 처리(GET)
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/delete/{id}")
+	public String todotitleDelete(Principal principal, @PathVariable("id") Integer id) {
+		//넘어온 ID 값에 맞는 객체 하나 가져오기
+		Todotitle todotitle = todotitleService.getTodotitle(id);
+		
+		//작성자 아이디와 로그인 아이디가 일치하는지 비교
+		if(!todotitle.getWriter().getUsername().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "레코드에 대한 삭제 권한이 없습니다.");
+		}
+		
+		//삭제
+		todotitleService.delete(todotitle);
+		
+		//다시 메인 페이지로 이동(리다이렉트)
+		return "redirect:/todotitle/list";
+	}
 }

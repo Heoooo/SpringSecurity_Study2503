@@ -62,9 +62,16 @@ public class TodotitleService {
 		
 		todotitle.setSubject(subject);
 		todotitle.setContent(content);
-		todotitle.setModifyDate(LocalDateTime.now());
+		todotitle.setModifyDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd HH:mm:ss.SSS")));
 		
 		//Save
 		todotitleRepository.save(todotitle);
+	}
+	
+	
+	//Todotitle 삭제
+	public void delete(Todotitle todotitle) {
+		
+		todotitleRepository.delete(todotitle);
 	}
 }
