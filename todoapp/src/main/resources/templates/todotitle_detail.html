@@ -75,10 +75,11 @@
 					<!-- 관련된 할 일 삭제 버튼 만들기 Start -->
 					<a href="javascript:void(0);"
 						th:data-uri="@{|/todowork/delete/${tw.id}|}"
-						class="delete btn btn-sm btn-secondary float-end"
+						class="delete btn btn-sm btn-outline-danger px-2 ms-3 text-uppercase"
 						sec:authorize="isAuthenticated()"
 						th:if="${tw.writer != null and #authentication.getPrincipal().getUsername() == tw.writer.username}"
 						th:text="Delete"
+						style="height: 22px; font-size: .7rem; padding: .15rem"
 					></a>
 					<!-- 관련된 할 일 삭제 버튼 만들기 End -->
 				</li>

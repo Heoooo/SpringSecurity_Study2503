@@ -630,4 +630,4 @@ Spring Boot Validation 라이브러리
 	3. 구현 순서
 		-todowork 삭제 버튼 만들기 => todotitle_detail
 		-컨트롤러 작업 => todoworkController => todoworkDelete() 메소드 작성
-		-서비스 작업 => todoworkService => delete() 메소드 작성
+		-서비스 작업 => todoworkService => getTodowork() + delete() 메소드 작성
