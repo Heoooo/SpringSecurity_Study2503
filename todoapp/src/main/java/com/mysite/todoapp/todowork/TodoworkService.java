@@ -2,9 +2,11 @@ package com.mysite.todoapp.todowork;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.mysite.todoapp.DataNotFoundException;
 import com.mysite.todoapp.member.Member;
 import com.mysite.todoapp.todotitle.Todotitle;
 
@@ -31,4 +33,23 @@ public class TodoworkService {
 		todoworkRepository.save(tw);
 	}
 	
+	//getTodowork() => ID 값에 맞는 Todowork 객체 하나 가져오기
+	public Todowork getTodowork(Integer id) {
+		
+		//ID 값으로 검색 => findById()
+		Optional<Todowork> todowork = todoworkRepository.findById(id);
+		
+		//존재하면
+		if(todowork.isPresent()) {
+			return todowork.get();		
+		}
+		else {
+			throw new DataNotFoundException("Todowork Not Found~!!");
+		}
+	}
+	
+	//Todowork Delete
+	public void delete(Todowork todowork) {
+		todoworkRepository.delete(todowork);
+	}
 }
