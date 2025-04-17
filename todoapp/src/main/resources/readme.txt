@@ -616,3 +616,18 @@ Spring Boot Validation 라이브러리
 		
 	4. 서비스 작업 => TodotitleService
 		-delete() 메소드 작성
+		
+	[Todowork 삭제 구현 단계]
+	1. 체크 사항
+		-일단 기존에 Todotitle 삭제를 구현할 때 삭제 스크립트를 작성해놓았기 때문에 다시 작성할 필요는 X
+	
+	2. 필요한 파일들
+		-todotitle_detail.html
+		
+		-todoworkController.java
+		-todoworkService.java
+		
+	3. 구현 순서
+		-todowork 삭제 버튼 만들기 => todotitle_detail
+		-컨트롤러 작업 => todoworkController => todoworkDelete() 메소드 작성
+		-서비스 작업 => todoworkService => delete() 메소드 작성

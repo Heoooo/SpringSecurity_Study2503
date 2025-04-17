@@ -71,6 +71,16 @@
 					<span th:if="${tw.writer != null}" th:text="${tw.writer.username}" class="fw-bold text-primary"></span>
 					<span class="small">(<span th:text="${tw.createDate.substring(0,5)}"></span>)</span>
 					<!--span th:text="${#temporals.format(tw.createDate,'yyyy-MM-dd HH:mm')}"></span-->
+				
+					<!-- 관련된 할 일 삭제 버튼 만들기 Start -->
+					<a href="javascript:void(0);"
+						th:data-uri="@{|/todowork/delete/${tw.id}|}"
+						class="delete btn btn-sm btn-secondary float-end"
+						sec:authorize="isAuthenticated()"
+						th:if="${tw.writer != null and #authentication.getPrincipal().getUsername() == tw.writer.username}"
+						th:text="Delete"
+					></a>
+					<!-- 관련된 할 일 삭제 버튼 만들기 End -->
 				</li>
 				
 			</ul>
